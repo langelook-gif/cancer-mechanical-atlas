@@ -49,7 +49,7 @@ with tabs[0]:
                     save_measurements(conn,ms)
                     st.success(f'Fetched {len(papers)} papers and extracted {len(ms)} candidate measurements.')
                 except Exception as e: st.exception(e)
-                    verified_studies = load_verified_studies()
+                verified_studies = load_verified_studies()
 
 st.subheader('Verified GBM starter literature')
 
