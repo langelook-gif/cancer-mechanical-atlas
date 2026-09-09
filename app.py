@@ -74,12 +74,12 @@ st.dataframe(
     use_container_width=True,
     hide_index=True
 )
-    papers_df=load_papers(conn)
-    if len(papers_df):
-        st.metric('Papers in local evidence store',len(papers_df))
-        show=papers_df[['pmid','year','title','journal','doi']].copy(); show['PubMed']=show['pmid'].map(lambda x:f'https://pubmed.ncbi.nlm.nih.gov/{x}/')
-        st.dataframe(show,use_container_width=True,hide_index=True)
-    else: st.info('No papers stored yet.')
+papers_df=load_papers(conn)
+if len(papers_df):
+    st.metric('Papers in local evidence store',len(papers_df))
+    show=papers_df[['pmid','year','title','journal','doi']].copy(); show['PubMed']=show['pmid'].map(lambda x:f'https://pubmed.ncbi.nlm.nih.gov/{x}/')
+    st.dataframe(show,use_container_width=True,hide_index=True)
+else: st.info('No papers stored yet.')
 
 with tabs[1]:
     st.subheader('Human-in-the-loop evidence curation')
