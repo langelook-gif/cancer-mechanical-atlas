@@ -126,7 +126,7 @@ with tabs[3]:
     d=d[d.cohort_label.isin(['cancer','healthy'])]
     def triplet(prop,cohort):
         vals=d.loc[(d.property_name==prop)&(d.cohort_label==cohort),'normalized_value'].dropna().to_numpy(float)
-        if len(vals)<2:return None
+        if len(vals)<1:return None
         return (float(np.median(vals)),float(np.quantile(vals,.25)),float(np.quantile(vals,.75)))
     cE=triplet('youngs_modulus','cancer'); hE=triplet('youngs_modulus','healthy')
     def radius_triplet(cohort):
