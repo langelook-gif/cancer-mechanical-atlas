@@ -28,7 +28,7 @@ with st.sidebar:
 
 tabs=st.tabs(['1 · Literature Search','2 · Evidence Curator','3 · Mechanical Atlas','4 · Frequency Hypothesis','5 · Method & Limits'])
 
-with tabs[1]:
+with tabs[0]:
     st.subheader('Search PubMed for mechanobiology evidence')
     c1,c2=st.columns([2,1])
     with c1:
@@ -56,7 +56,7 @@ with tabs[1]:
         st.dataframe(show,use_container_width=True,hide_index=True)
     else: st.info('No papers stored yet.')
 
-with tabs[2]:
+with tabs[1]:
     st.subheader('Human-in-the-loop evidence curation')
     mdf=load_measurements(conn)
     if mdf.empty: st.info('Run a literature search first.')
@@ -73,7 +73,7 @@ with tabs[2]:
             replace_measurements_from_df(conn,merged.reset_index()); st.success('Saved.')
         st.download_button('Download evidence CSV',mdf.to_csv(index=False).encode('utf-8'),file_name='mechanical_evidence.csv',mime='text/csv')
 
-with tabs[3]:
+with tabs[2]:
     st.subheader('Cancer vs healthy mechanical evidence')
     mdf=load_measurements(conn)
     if mdf.empty: st.info('No extracted evidence yet.')
@@ -93,7 +93,7 @@ with tabs[3]:
             fig.update_layout(barmode='overlay',title=f'{prop}: cancer vs healthy',xaxis_title='Normalized value',yaxis_title='Density'); st.plotly_chart(fig,use_container_width=True)
             st.caption('Low overlap supports mechanical separability; high overlap argues against using this property by itself. These distributions are only as trustworthy as the curated evidence.')
 
-with tabs[4]:
+with tabs[3]:
     st.subheader('Exploratory frequency-response hypothesis')
     st.error('This module is intentionally a hypothesis generator, not a treatment calculator. It uses a simplified oscillator proxy and should not be used for experimental dosing or clinical decisions.')
     mdf=load_measurements(conn); verified_only=st.checkbox('Use verified evidence only',value=False,key='freq_verified'); d=mdf.copy()
