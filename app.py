@@ -13,7 +13,7 @@ from cma.verified_seed import load_verified_studies, seed_verified_measurements
 
 st.set_page_config(page_title="Cancer Mechanical Atlas",page_icon="🧬",layout="wide")
 conn=connect('cancer_mechanical_atlas.sqlite')
-
+seed_verified_measurements(conn)
 st.title('Cancer Mechanical Atlas')
 st.caption('Literature-grounded mechanobiology evidence → cancer-vs-healthy comparison → exploratory acoustic-response hypotheses.')
 st.warning('Research-use only. This app does not identify a treatment frequency, safe dose, or clinical ultrasound protocol. Every machine-extracted value must be verified against the original paper before it is used as evidence.')
@@ -49,6 +49,31 @@ with tabs[0]:
                     save_measurements(conn,ms)
                     st.success(f'Fetched {len(papers)} papers and extracted {len(ms)} candidate measurements.')
                 except Exception as e: st.exception(e)
+                    verified_studies = load_verified_studies()
+
+st.subheader('Verified GBM starter literature')
+
+st.write(
+    f'{len(verified_studies)} manually verified studies are bundled with this project.'
+)
+
+st.dataframe(
+    verified_studies[
+        [
+            'pmid',
+            'year',
+            'title',
+            'journal',
+            'study_type',
+            'bottom_line',
+            'evidence_direction',
+            'verification_status',
+            'source_url'
+        ]
+    ],
+    use_container_width=True,
+    hide_index=True
+)
     papers_df=load_papers(conn)
     if len(papers_df):
         st.metric('Papers in local evidence store',len(papers_df))
