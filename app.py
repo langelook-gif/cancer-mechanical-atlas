@@ -121,7 +121,7 @@ with tabs[4]:
             fig=go.Figure(); fig.add_trace(go.Scatter(x=result['frequency_hz']/1e3,y=result['cancer_response'],mode='lines',name='Cancer modeled response')); fig.add_trace(go.Scatter(x=result['frequency_hz']/1e3,y=result['healthy_response'],mode='lines',name='Healthy modeled response')); fig.add_vline(x=best,line_dash='dash'); fig.update_xaxes(type='log',title='Frequency (kHz)'); fig.update_yaxes(title='Normalized modeled response'); fig.update_layout(title='Exploratory frequency-response comparison'); st.plotly_chart(fig,use_container_width=True)
             st.caption('This is the frequency where this simplified proxy predicts a useful cancer-vs-healthy response difference given the current evidence. It is not a validated cell resonance, therapeutic setting, or injury threshold.')
 
-with tabs[5]:
+with tabs[4]:
     st.subheader('How this system should be used')
     st.markdown('''
 ### Pipeline
